@@ -3,12 +3,12 @@ import java.time.format.DateTimeFormatter;
 
 public class Reserva {
     
-    // CONSTANTES
+    // Constantes
     public static final String STATUS_ATIVA = "Ativa";
     public static final String STATUS_CANCELADA = "Cancelada";
     public static final String STATUS_FINALIZADA = "Finalizada";
     
-    // ATRIBUTOS
+    // Atributos
     private int id;
     private LocalDateTime dataHora;
     private String nomeCliente;
@@ -16,7 +16,7 @@ public class Reserva {
     private int numeroMesa;
     private String status;
     
-    // CONSTRUTORES
+    // Construtores
     public Reserva() {
     }
     
@@ -30,7 +30,7 @@ public class Reserva {
         this.status = status;
     }
     
-    // GETTERS E SETTERS
+    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -79,7 +79,7 @@ public class Reserva {
         this.status = status;
     }
     
-    // MÉTODOS
+    // Métodos
     
     
     //Formata data e hora para exibição (dd/MM/yyyy HH:mm)

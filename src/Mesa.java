@@ -1,16 +1,16 @@
 public class Mesa {
     
-    // 1. CONSTANTES
+    // 1. Cconstantes
     public static final String LOCALIZACAO_JANELA = "Janela";
     public static final String LOCALIZACAO_CENTRO = "Centro";
     public static final String LOCALIZACAO_VARANDA = "Varanda";
     
-    // 2. ATRIBUTOS
+    // 2. Atributos
     private int numero;
     private int capacidade;
     private String localizacao;
     
-    // 3. CONSTRUTORES
+    // 3. Construtores
     public Mesa() {
     }
     
@@ -21,7 +21,7 @@ public class Mesa {
         this.localizacao = localizacao;
     }
     
-    // 4. GETTERS E SETTERS
+    //  Getters e Setters
     public int getNumero() {
         return numero;
     }
@@ -46,7 +46,7 @@ public class Mesa {
         this.localizacao = localizacao;
     }
 
-    // 5. MÉTODOS
+    // Métodos
     
     /**
      * Verifica se a mesa comporta a quantidade de pessoas especificada
@@ -66,7 +66,7 @@ public class Mesa {
         return this.localizacao.equalsIgnoreCase(local);
     }
     
-    // 6. toString
+    // toString
     @Override
     public String toString() {
         return String.format("Mesa %d | Capacidade: %d pessoa%s | Localização: %s",

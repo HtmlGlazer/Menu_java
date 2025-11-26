@@ -1,6 +1,6 @@
 public class Prato extends ItemCardapio {  // ✅ extends, não implements!
     
-    // CONSTANTES
+    // Constantes
     public static final String CATEGORIA_ENTRADA = "Entrada";
     public static final String CATEGORIA_PRINCIPAL = "Prato Principal";
     public static final String CATEGORIA_ACOMPANHAMENTO = "Acompanhamento";
@@ -48,7 +48,7 @@ public class Prato extends ItemCardapio {  // ✅ extends, não implements!
         this.tempoPreparo = tempoPreparo;
     }
     
-    // MÉTODOS
+    // Métodos
     @Override
     public double calcularPrecoFinal() {
         double precoFinal = getPreco(); 
