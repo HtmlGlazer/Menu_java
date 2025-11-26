@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-public class ReservaEspecial extends Reserva{
+public class ReservaEspecial extends Reserva {
+    
     // Constantes
     public static final String EVENTO_ANIVERSARIO = "Aniversário";
     public static final String EVENTO_CASAMENTO = "Casamento";
@@ -27,7 +27,7 @@ public class ReservaEspecial extends Reserva{
 
     // Getters e Setters
     public String getTipoEvento() {
-        return this.tipoEvento;
+        return tipoEvento;  
     }
 
     public void setTipoEvento(String tipoEvento) {
@@ -35,11 +35,7 @@ public class ReservaEspecial extends Reserva{
     }
 
     public boolean isDecoracaoEspecial() {
-        return this.decoracaoEspecial;
-    }
-
-    public boolean getDecoracaoEspecial() {
-        return this.decoracaoEspecial;
+        return decoracaoEspecial;
     }
 
     public void setDecoracaoEspecial(boolean decoracaoEspecial) {
@@ -47,10 +43,17 @@ public class ReservaEspecial extends Reserva{
     }
 
     // Métodos
-    //Formata data e hora para exibição (dd/MM/yyyy HH:mm)
     @Override
-    public String getDataHoraFormatada() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return dataHora.format(formatter);
+    public String toString() {
+        return String.format("Reserva #%d | %s | Cliente: %s | %d pessoa%s | Mesa %d | Status: %s | Evento: %s | Decoração: %s",
+                           getId(),
+                           getDataHoraFormatada(),
+                           getNomeCliente(),
+                           getQuantidadePessoas(),
+                           getQuantidadePessoas() != 1 ? "s" : "",
+                           getNumeroMesa(),
+                           getStatus(),
+                           tipoEvento,
+                           decoracaoEspecial ? "Sim" : "Não");
     }
 }
