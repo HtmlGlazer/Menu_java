@@ -8,11 +8,11 @@ public class Prato extends ItemCardapio {  // ✅ extends, não implements!
     public static final String TAMANHO_P = "P";
     public static final String TAMANHO_M = "M";
     public static final String TAMANHO_G = "G";
-    // ATRIBUTOS
+    // Atributos
     private String categoria;
     private String tamanho;
     private int tempoPreparo;  
-    // CONSTRUTORES
+    // Construtores
     public Prato() {
         super();
     } 
@@ -23,7 +23,7 @@ public class Prato extends ItemCardapio {  // ✅ extends, não implements!
         this.tamanho = tamanho;
         this.tempoPreparo = tempoPreparo;
     }   
-    // GETTERS E SETTERS
+    // Getters e Setters
     public String getCategoria() {
         return categoria;
     }

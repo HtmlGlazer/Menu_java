@@ -1,8 +1,8 @@
 public abstract class ItemCardapio {
-    private int id;                 // chave primária e identificador único
+    private int id;
     private String nome;
-    private String descricao; // breve descrição do item
-    private double preco;      // preço em reais
+    private String descricao;
+    private double preco;
     
     // Construtor para Integração com BD
     public ItemCardapio() {

@@ -11,13 +11,12 @@ public class Mesa {
     // 2. ATRIBUTOS
     // ============================================
     private int numero;
-    private int capacidade;     // quantidade de pessoas
+    private int capacidade;
     private String localizacao;
     
     // ============================================
     // 3. CONSTRUTORES
     // ============================================
-    // Construtor vazio (para integração com BD)
     public Mesa() {
     }
     

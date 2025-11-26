@@ -1,6 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SistemaRestaurante {
+    
+    // Listas temporárias para armazenar dados (substituir por DAO depois)
+    private static List<Prato> listaPratos = new ArrayList<>();
+    private static List<Bebida> listaBebidas = new ArrayList<>();
+    private static List<Mesa> listaMesas = new ArrayList<>();
     
     public static void main(String[] args) {
         boolean rodar = true;
@@ -15,50 +22,37 @@ public class SistemaRestaurante {
             switch (opcao) {
                 case 1:
                     cadastrarItemCardapio(sc);
-                    break;
                 case 2:
-                    System.out.println("\n[Consultar Itens do Cardápio] - Em desenvolvimento");
-                    break;
+                    consultarItensCardapio(sc);
                 case 3:
                     System.out.println("\n[Atualizar Item do Cardápio] - Em desenvolvimento");
-                    break;
                 case 4:
-                    System.out.println("\n[Eliminar Item do Cardápio] - Em desenvolvimento");
-                    break;
+                    eliminarItemCardapio(sc);
                 case 5:
-                    System.out.println("\n[Cadastrar Mesa] - Em desenvolvimento");
-                    break;
+                    cadastrarMesa(sc);
                 case 6:
-                    System.out.println("\n[Consultar Mesas] - Em desenvolvimento");
-                    break;
+                    consultarMesas(sc);
                 case 7:
                     System.out.println("\n[Atualizar Mesa] - Em desenvolvimento");
-                    break;
                 case 8:
-                    System.out.println("\n[Eliminar Mesa] - Em desenvolvimento");
-                    break;
+                    eliminarMesa(sc);
                 case 9:
                     System.out.println("\n[Cadastrar Reserva] - Em desenvolvimento");
-                    break;
                 case 10:
                     System.out.println("\n[Consultar Reservas] - Em desenvolvimento");
-                    break;
                 case 11:
                     System.out.println("\n[Atualizar Reserva] - Em desenvolvimento");
-                    break;
                 case 12:
                     System.out.println("\n[Eliminar Reserva] - Em desenvolvimento");
-                    break;
                 case 0:
                     System.out.println("\n=================================");
                     System.out.println("  Encerrando o sistema...");
                     System.out.println("  Até logo!");
                     System.out.println("=================================\n");
                     rodar = false;
-                    break;
                 
                 default:
-                    System.out.println("\n❌ Opção inválida! Tente novamente.\n");
+                    System.out.println("\n Opção inválida! Tente novamente.\n");
             }
             
             if (rodar && opcao >= 1 && opcao <= 12) {
@@ -112,7 +106,7 @@ public class SistemaRestaurante {
     }
     
     // ============================================
-    // CADASTRO DE ITENS DO CARDÁPIO
+    // CARDÁPIO - CADASTRAR
     // ============================================
     private static void cadastrarItemCardapio(Scanner sc) {
         System.out.println("\n=== Cadastrar Item do Cardápio ===");
@@ -139,9 +133,6 @@ public class SistemaRestaurante {
         }
     }
     
-    // ============================================
-    // CADASTRO DE PRATO
-    // ============================================
     private static void cadastrarPrato(Scanner sc) {
         System.out.println("\n=== Cadastrar Prato ===");
         
@@ -155,7 +146,6 @@ public class SistemaRestaurante {
         double preco = sc.nextDouble();
         sc.nextLine();
         
-        // Usa os métodos auxiliares
         String categoria = escolherCategoriaPrato(sc);
         String tamanho = escolherTamanhoPrato(sc);
         
@@ -163,20 +153,179 @@ public class SistemaRestaurante {
         int tempoPreparo = sc.nextInt();
         sc.nextLine();
         
-        // Cria o objeto Prato (ID será gerado pelo banco, por isso 0)
         Prato prato = new Prato(0, nome, descricao, preco, categoria, tamanho, tempoPreparo);
+        listaPratos.add(prato); 
         
-        // Aqui você chamaria o DAO para salvar
-        // PratoDAO dao = new PratoDAO();
-        // dao.cadastrar(prato);
-        
-        System.out.println("\n✅ Prato cadastrado com sucesso!");
-        System.out.println("Preço final calculado: R$ " + String.format("%.2f", prato.calcularPrecoFinal()));
+        System.out.println("\n Prato cadastrado com sucesso!");
+        System.out.println("Preço final: R$ " + String.format("%.2f", prato.calcularPrecoFinal()));
         System.out.println(prato);
     }
     
+    private static void cadastrarBebida(Scanner sc) {
+        System.out.println("\n=== Cadastrar Bebida ===");
+        
+        System.out.print("Nome da bebida: ");
+        String nome = sc.nextLine();
+        
+        System.out.print("Descrição: ");
+        String descricao = sc.nextLine();
+        
+        System.out.print("Preço: R$ ");
+        double preco = sc.nextDouble();
+        sc.nextLine();
+        
+        String categoria = escolherCategoriaBebida(sc);
+        int volume = escolherVolumeBebida(sc);
+        boolean gelada = escolherSeGelada(sc);
+        
+        Bebida bebida = new Bebida(0, nome, descricao, preco, categoria, volume, gelada);
+        listaBebidas.add(bebida); 
+        
+        System.out.println("\n Bebida cadastrada com sucesso!");
+        System.out.println("Preço final: R$ " + String.format("%.2f", bebida.calcularPrecoFinal()));
+        System.out.println(bebida);
+    }
+    
     // ============================================
-    // MÉTODOS AUXILIARES DE ESCOLHA
+    // CARDÁPIO - CONSULTAR
+    // ============================================
+    private static void consultarItensCardapio(Scanner sc) {
+        System.out.println("\n╔═══════════════════════════════════════╗");
+        System.out.println("║   CONSULTAR ITENS DO CARDÁPIO         ║");
+        System.out.println("╚═══════════════════════════════════════╝");
+        
+        if (listaPratos.isEmpty() && listaBebidas.isEmpty()) {
+            System.out.println("\n Nenhum item cadastrado no cardápio!");
+            return;
+        }
+        
+        // Exibir Pratos
+        System.out.println("\n┌─────────────────────────────────────┐");
+        System.out.println("│           PRATOS                    │");
+        System.out.println("└─────────────────────────────────────┘");
+        
+        if (listaPratos.isEmpty()) {
+            System.out.println(" Nenhum prato cadastrado.");
+        } else {
+            int contador = 1;
+            for (Prato prato : listaPratos) {
+                System.out.printf("%d. %s%n", contador++, prato);
+                System.out.printf("   Preço final: R$ %.2f%n%n", prato.calcularPrecoFinal());
+            }
+        }
+        
+        // Exibir Bebidas
+        System.out.println("\n┌─────────────────────────────────────┐");
+        System.out.println("│           BEBIDAS                   │");
+        System.out.println("└─────────────────────────────────────┘");
+        
+        if (listaBebidas.isEmpty()) {
+            System.out.println("   Nenhuma bebida cadastrada.");
+        } else {
+            int contador = 1;
+            for (Bebida bebida : listaBebidas) {
+                System.out.printf("%d. %s%n", contador++, bebida);
+                System.out.printf("   Preço final: R$ %.2f%n%n", bebida.calcularPrecoFinal());
+            }
+        }
+        
+        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        System.out.printf("Total: %d pratos, %d bebidas%n", 
+                         listaPratos.size(), listaBebidas.size());
+    }
+    
+    // ============================================
+    // CARDÁPIO - ELIMINAR
+    // ============================================
+    private static void eliminarItemCardapio(Scanner sc) {
+        System.out.println("\n=== Eliminar Item do Cardápio ===");
+        System.out.println("1 - Eliminar Prato");
+        System.out.println("2 - Eliminar Bebida");
+        System.out.println("0 - Voltar");
+        System.out.print("Escolha: ");
+        
+        int opcao = sc.nextInt();
+        sc.nextLine();
+        
+        switch (opcao) {
+            case 1:
+                eliminarPrato(sc);
+                break;
+            case 2:
+                eliminarBebida(sc);
+                break;
+            case 0:
+                System.out.println("Voltando ao menu principal...");
+                break;
+            default:
+                System.out.println("Opção inválida!");
+        }
+    }
+    
+    private static void eliminarPrato(Scanner sc) {
+        if (listaPratos.isEmpty()) {
+            System.out.println("\n Nenhum prato cadastrado!");
+            return;
+        }
+        
+        System.out.println("\n=== Eliminar Prato ===");
+        System.out.println("Pratos cadastrados:\n");
+        
+        for (int i = 0; i < listaPratos.size(); i++) {
+            System.out.printf("%d. %s%n", (i + 1), listaPratos.get(i).getNome());
+        }
+        
+        System.out.print("\nDigite o número do prato a eliminar (0 para cancelar): ");
+        int opcao = sc.nextInt();
+        sc.nextLine();
+        
+        if (opcao == 0) {
+            System.out.println("Operação cancelada.");
+            return;
+        }
+        
+        if (opcao < 1 || opcao > listaPratos.size()) {
+            System.out.println(" Opção inválida!");
+            return;
+        }
+        
+        Prato pratoRemovido = listaPratos.remove(opcao - 1);
+        System.out.println("\n Prato '" + pratoRemovido.getNome() + "' eliminado com sucesso!");
+    }
+    
+    private static void eliminarBebida(Scanner sc) {
+        if (listaBebidas.isEmpty()) {
+            System.out.println("\n Nenhuma bebida cadastrada!");
+            return;
+        }
+        
+        System.out.println("\n=== Eliminar Bebida ===");
+        System.out.println("Bebidas cadastradas:\n");
+        
+        for (int i = 0; i < listaBebidas.size(); i++) {
+            System.out.printf("%d. %s%n", (i + 1), listaBebidas.get(i).getNome());
+        }
+        
+        System.out.print("\nDigite o número da bebida a eliminar (0 para cancelar): ");
+        int opcao = sc.nextInt();
+        sc.nextLine();
+        
+        if (opcao == 0) {
+            System.out.println("Operação cancelada.");
+            return;
+        }
+        
+        if (opcao < 1 || opcao > listaBebidas.size()) {
+            System.out.println(" Opção inválida!");
+            return;
+        }
+        
+        Bebida bebidaRemovida = listaBebidas.remove(opcao - 1);
+        System.out.println("\nBebida '" + bebidaRemovida.getNome() + "' eliminada com sucesso!");
+    }
+    
+    // ============================================
+    // MÉTODOS AUXILIARES - PRATO
     // ============================================
     private static String escolherCategoriaPrato(Scanner sc) {
         System.out.println("\n=== Escolha a Categoria ===");
@@ -186,7 +335,7 @@ public class SistemaRestaurante {
         System.out.print("Opção: ");
         
         int opcao = sc.nextInt();
-        sc.nextLine(); // limpar buffer
+        sc.nextLine();
         
         return switch (opcao) {
             case 1 -> Prato.CATEGORIA_ENTRADA;
@@ -221,40 +370,7 @@ public class SistemaRestaurante {
     }
     
     // ============================================
-    // CADASTRO DE BEBIDA
-    // ============================================
-    private static void cadastrarBebida(Scanner sc) {
-        System.out.println("\n=== Cadastrar Bebida ===");
-        
-        System.out.print("Nome da bebida: ");
-        String nome = sc.nextLine();
-        
-        System.out.print("Descrição: ");
-        String descricao = sc.nextLine();
-        
-        System.out.print("Preço: R$ ");
-        double preco = sc.nextDouble();
-        sc.nextLine();
-        
-        // Usa os métodos auxiliares
-        String categoria = escolherCategoriaBebida(sc);
-        int volume = escolherVolumeBebida(sc);
-        boolean gelada = escolherSeGelada(sc);
-        
-        // Cria o objeto Bebida (variável em minúscula!)
-        Bebida bebida = new Bebida(0, nome, descricao, preco, categoria, volume, gelada);
-        
-        // Aqui você chamaria o DAO para salvar
-        // BebidaDAO dao = new BebidaDAO();
-        // dao.cadastrar(bebida);
-        
-        System.out.println("\n✅ Bebida cadastrada com sucesso!");
-        System.out.println("Preço final calculado: R$ " + String.format("%.2f", bebida.calcularPrecoFinal()));
-        System.out.println(bebida);
-    }
-    
-    // ============================================
-    // MÉTODOS AUXILIARES DE BEBIDA
+    // MÉTODOS AUXILIARES - BEBIDA
     // ============================================
     private static String escolherCategoriaBebida(Scanner sc) {
         System.out.println("\n=== Escolha a Categoria ===");
@@ -309,27 +425,12 @@ public class SistemaRestaurante {
         int opcao = sc.nextInt();
         sc.nextLine();
         
-        return opcao == 1;  // Retorna true se for 1, false caso contrário
+        return opcao == 1;
     }
     
     // ============================================
-    // MÉTODOS FUTUROS (comentados)
+    // MESA - CADASTRAR
     // ============================================
-    
-    /* 
-    private static void consultarItensCardapio(Scanner sc) {
-        // Implementar consulta com filtros
-    }
-    
-    private static void atualizarItemCardapio(Scanner sc) {
-        // Implementar atualização
-    }
-    
-    private static void eliminarItemCardapio(Scanner sc) {
-        // Implementar exclusão
-    }
-    */
-
     private static void cadastrarMesa(Scanner sc) {
         System.out.println("\n=== Cadastrar Mesa ===");
         
@@ -337,65 +438,97 @@ public class SistemaRestaurante {
         int numero = sc.nextInt();
         sc.nextLine();
         
-        System.out.print("\n=== Escolha a Localização da mesa ===");
+        System.out.print("Capacidade (quantidade de pessoas): ");
         int capacidade = sc.nextInt();
         sc.nextLine();
         
-        System.out.print("\n=== Escolha a Localização da mesa ===");
-        System.out.print("1 - " + Mesa.LOCALIZACAO_JANELA);
-        System.out.print("2 - " + Mesa.LOCALIZACAO_CENTRO);
-        System.out.print("3 - " + Mesa.LOCALIZACAO_VARANDA);
+        String localizacao = escolherLocalizacaoMesa(sc);
+        
+        Mesa mesa = new Mesa(numero, capacidade, localizacao);
+        listaMesas.add(mesa); 
+        
+        System.out.println("\n Mesa cadastrada com sucesso!");
+        System.out.println(mesa);
+    }
+    
+    private static String escolherLocalizacaoMesa(Scanner sc) {
+        System.out.println("\n=== Escolha a Localização ===");
+        System.out.println("1 - " + Mesa.LOCALIZACAO_JANELA);
+        System.out.println("2 - " + Mesa.LOCALIZACAO_CENTRO);
+        System.out.println("3 - " + Mesa.LOCALIZACAO_VARANDA);
         System.out.print("Opção: ");
+        
         int opcao = sc.nextInt();
-
+        sc.nextLine();
+        
         return switch (opcao) {
             case 1 -> Mesa.LOCALIZACAO_JANELA;
             case 2 -> Mesa.LOCALIZACAO_CENTRO;
             case 3 -> Mesa.LOCALIZACAO_VARANDA;
             default -> {
                 System.out.println("Opção inválida! Usando localização padrão.");
-                yield Mesa.LOCALIZACAO_JANELA;
+                yield Mesa.LOCALIZACAO_CENTRO;
             }
         };
-        
-        Mesa mesa = new Mesa(numero, capacidade, localizacao);
-        
-        // Aqui você chamaria o DAO para salvar
-        // MesaDAO dao = new MesaDAO();
-        // dao.cadastrar(mesa);
-        
-        System.out.println("\n✅ Mesa cadastrada com sucesso!");
-        System.out.println(mesa);
     }
-
-    /*
     
+    // ============================================
+    // MESA - CONSULTAR
+    // ============================================
     private static void consultarMesas(Scanner sc) {
-        // Implementar consulta de mesas
+        System.out.println("\n╔═══════════════════════════════════════╗");
+        System.out.println("║        CONSULTAR MESAS                ║");
+        System.out.println("╚═══════════════════════════════════════╝");
+        
+        if (listaMesas.isEmpty()) {
+            System.out.println("\n Nenhuma mesa cadastrada!");
+            return;
+        }
+        
+        System.out.println("\n--- Mesas Cadastradas ---\n");
+        
+        for (int i = 0; i < listaMesas.size(); i++) {
+            Mesa mesa = listaMesas.get(i);
+            System.out.printf("%d. %s%n", (i + 1), mesa);
+        }
+        
+        System.out.println("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        System.out.println("Total: " + listaMesas.size() + " mesas");
     }
     
-    private static void atualizarMesa(Scanner sc) {
-        // Implementar atualização de mesa
-    }
-    
+    // ============================================
+    // MESA - ELIMINAR
+    // ============================================
     private static void eliminarMesa(Scanner sc) {
-        // Implementar exclusão de mesa
+        if (listaMesas.isEmpty()) {
+            System.out.println("\n Nenhuma mesa cadastrada!");
+            return;
+        }
+        
+        System.out.println("\n=== Eliminar Mesa ===");
+        System.out.println("Mesas cadastradas:\n");
+        
+        for (int i = 0; i < listaMesas.size(); i++) {
+            Mesa mesa = listaMesas.get(i);
+            System.out.printf("%d. Mesa %d - %d pessoas - %s%n", 
+                            (i + 1), mesa.getNumero(), mesa.getCapacidade(), mesa.getLocalizacao());
+        }
+        
+        System.out.print("\nDigite o número da opção a eliminar (0 para cancelar): ");
+        int opcao = sc.nextInt();
+        sc.nextLine();
+        
+        if (opcao == 0) {
+            System.out.println("Operação cancelada.");
+            return;
+        }
+        
+        if (opcao < 1 || opcao > listaMesas.size()) {
+            System.out.println(" Opção inválida!");
+            return;
+        }
+        
+        Mesa mesaRemovida = listaMesas.remove(opcao - 1);
+        System.out.println("\n Mesa " + mesaRemovida.getNumero() + " eliminada com sucesso!");
     }
-    
-    private static void cadastrarReserva(Scanner sc) {
-        // Implementar cadastro de Reserva ou ReservaEspecial
-    }
-    
-    private static void consultarReservas(Scanner sc) {
-        // Implementar consulta de reservas
-    }
-    
-    private static void atualizarReserva(Scanner sc) {
-        // Implementar atualização de reserva
-    }
-    
-    private static void eliminarReserva(Scanner sc) {
-        // Implementar exclusão de reserva
-    }
-    */
 }
