@@ -10,7 +10,7 @@ Menu aplicando Polimorfismo, Abstração, Herança e Encapsulamento em Java
 - Adicione sua senha no dentro do arquivo ConexaoDB.java, especificamente, dentro do espaço vazio em:
   >  private static final String SENHA = " ";
 
-- Adicione o comando a seguir nele ( criar banco de dados):
+- Adicione o comando a seguir nele ( criar banco de dados):     
  -- Criar banco de dados
 CREATE DATABASE IF NOT EXISTS restaurante_db;
 USE restaurante_db;
