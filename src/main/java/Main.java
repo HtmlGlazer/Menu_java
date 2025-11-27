@@ -1,10 +1,11 @@
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Scanner;
+
 import dao.BebidaDAO;
 import dao.MesaDAO;
 import dao.PratoDAO;
 import dao.ReservaDAO;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Scanner;
 import model.Bebida;
 import model.Mesa;
 import model.Prato;
@@ -359,19 +360,19 @@ public class Main {
     private static LocalDateTime escolherDataHora(Scanner sc) {
         System.out.println("\nData e Hora:");
         
-        System.out.print("Ano (2024): ");
+        System.out.print("Ano: ");
         int ano = sc.nextInt();
         
-        System.out.print("Mes (1-12): ");
+        System.out.print("Mes: ");
         int mes = sc.nextInt();
         
-        System.out.print("Dia (1-31): ");
+        System.out.print("Dia: ");
         int dia = sc.nextInt();
         
-        System.out.print("Hora (0-23): ");
+        System.out.print("Hora: ");
         int hora = sc.nextInt();
         
-        System.out.print("Minuto (0-59): ");
+        System.out.print("Minuto: ");
         int minuto = sc.nextInt();
         sc.nextLine();
         

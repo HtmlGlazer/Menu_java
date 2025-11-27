@@ -39,7 +39,7 @@ public class Bebida extends ItemCardapio {
         this.volume = volume;
     }
 
-    public boolean getGelada() {
+    public boolean isGelada() {
         return gelada;
     }
 

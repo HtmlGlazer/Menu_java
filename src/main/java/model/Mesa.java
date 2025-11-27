@@ -1,7 +1,7 @@
 package model;
 public class Mesa {
     
-    // 1. Cconstantes
+    // 1. Constantes
     public static final String LOCALIZACAO_JANELA = "Janela";
     public static final String LOCALIZACAO_CENTRO = "Centro";
     public static final String LOCALIZACAO_VARANDA = "Varanda";
