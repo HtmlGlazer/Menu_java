@@ -1,3 +1,4 @@
+package model;
 public class Mesa {
     
     // 1. Cconstantes

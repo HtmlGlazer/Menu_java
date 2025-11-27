@@ -1,4 +1,6 @@
-public class Prato extends ItemCardapio {  // ✅ extends, não implements!
+
+package model;
+public class Prato extends ItemCardapio { 
     
     // Constantes
     public static final String CATEGORIA_ENTRADA = "Entrada";

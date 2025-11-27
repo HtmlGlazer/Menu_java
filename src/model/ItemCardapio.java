@@ -1,3 +1,4 @@
+package model;
 public abstract class ItemCardapio {
     private int id;
     private String nome;

@@ -1,17 +1,17 @@
-
-public class Bebida extends ItemCardapio {  // ✅ extends, não implements!
+package model;
+public class Bebida extends ItemCardapio {
     
-    // 1. CONSTANTES
+    // Constantes
     public static final String CATEGORIA_REFRIGERANTE = "Refrigerante";
     public static final String CATEGORIA_SUCO = "Suco Natural";
     public static final String CATEGORIA_ALCOOLICA = "Alcoólica";
 
-    // 2. ATRIBUTOS
-    private String categoria;  // "Refrigerante", "Suco", "Alcoólica", "Quente"
-    private int volume;        // em ml (300, 500, 750 e 1000)
+    // Atributos
+    private String categoria;  
+    private int volume;       
     private boolean gelada;
     
-    // 3. CONSTRUTORES
+    // Construtores
     public Bebida() {
         super();
     }
@@ -22,7 +22,7 @@ public class Bebida extends ItemCardapio {  // ✅ extends, não implements!
         this.volume = volume;
         this.gelada = gelada;
     }
-    // GETTERS E SETTERS
+    // Getters e Setters
     public String getCategoria() {
         return categoria;
     }
@@ -47,22 +47,18 @@ public class Bebida extends ItemCardapio {  // ✅ extends, não implements!
         this.gelada = gelada;
     }
     
-    // 5. MÉTODOS OBRIGATÓRIOS (abstract do pai)
+    // Métodos
     @Override
     public double calcularPrecoFinal() {
         double precoFinal = getPreco();
         
-        switch (volume) {
-            case 300:
-                precoFinal *= 0.8;
-            case 500:
-                precoFinal *= 1.0;
-            case 750:
-                precoFinal *= 1.2;
-            case 1000:
-                precoFinal *= 1.3;
-            default:
-        }
+    switch (volume) {
+        case 300 -> precoFinal *= 0.8;
+        case 500 -> precoFinal *= 1.0;
+        case 750 -> precoFinal *= 1.2;
+        case 1000 -> precoFinal *= 1.3;
+        default -> precoFinal *= 1.0;
+    }
 
         if (gelada) {
             precoFinal += 1.0;
