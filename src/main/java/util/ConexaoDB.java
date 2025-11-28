@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexaoDB {
-    
+
     // Configurações do banco
     private static final String URL = "jdbc:mysql://localhost:3306/restaurante_db";
     private static final String USUARIO = "root";
-    private static final String SENHA = " ";
-    
+    private static final String SENHA = "Marcinho@08";
+
     // Método para obter conexão
     public static Connection getConexao() {
         try {
@@ -21,7 +21,7 @@ public class ConexaoDB {
             return null;
         }
     }
-    
+
     // Método para testar conexão
     public static void testarConexao() {
         Connection conn = getConexao();
